@@ -12,14 +12,14 @@ import gspread
 # ===========================================================================
 
 # Account details for google docs
-email       = 'you@somewhere.com'
-password    = '$hhh!'
-spreadsheet = 'SpreadsheetName'
+email       = 'secret'
+password    = 'secret'
+spreadsheet = 'DHT Logger'
 
-# ===========================================================================
-# Example Code
-# ===========================================================================
-
+poll_interval = 30*60
+# DHT11 sensors can be connected to the following GPIO data pins:
+sensors = ['22','21','17','15','4','1']
+names   = ['Room', 'n/a', 'n/a', 'n/a', 'n/a', 'Cabinet']
 
 # Login with your Google account
 try:
@@ -40,33 +40,37 @@ except:
 # Continuously append data
 while(True):
   # Run the DHT program to get the humidity and temperature readings!
-
-  output = subprocess.check_output(["./Adafruit_DHT", "2302", "4"]);
-  print output
-  matches = re.search("Temp =\s+([0-9.]+)", output)
-  if (not matches):
+  row = []
+  for x in range(len(sensors)):
+    output = subprocess.check_output(["./Adafruit_DHT", "11", sensors[x]]);
+    print "Sensor %d, %s, GPIO pin %s" % (x+1, names[x], sensors[x])
+    print output
+    matches = re.search("Temp =\s+([0-9.]+)", output)
+    if (not matches):
 	time.sleep(3)
 	continue
-  temp = float(matches.group(1))
+    temp = float(matches.group(1))
   
-  # search for humidity printout
-  matches = re.search("Hum =\s+([0-9.]+)", output)
-  if (not matches):
+    # search for humidity printout
+    matches = re.search("Hum =\s+([0-9.]+)", output)
+    if (not matches):
 	time.sleep(3)
 	continue
-  humidity = float(matches.group(1))
+    humidity = float(matches.group(1))
 
-  print "Temperature: %.1f C" % temp
-  print "Humidity:    %.1f %%" % humidity
+    print "Temperature: %.1f C" % temp
+    print "Humidity:    %.1f %%" % humidity
+    row.extend([temp, humidity])
  
   # Append the data in the spreadsheet, including a timestamp
   try:
-    values = [datetime.datetime.now(), temp, humidity]
+    values = [datetime.datetime.now()] + row
+    print values
     worksheet.append_row(values)
   except:
     print "Unable to append data.  Check your connection?"
     sys.exit()
 
-  # Wait 30 seconds before continuing
+  # Wait poll_interval seconds before continuing
   print "Wrote a row to %s" % spreadsheet
-  time.sleep(30)
+  time.sleep(poll_interval)
