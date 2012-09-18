@@ -3,6 +3,7 @@
 import subprocess
 import re
 import sys
+import os
 import time
 import datetime
 import gspread
@@ -11,19 +12,19 @@ import gspread
 # Google Account Details
 # ===========================================================================
 
-# Account details for google docs
-email       = 'secret'
-password    = 'secret'
-spreadsheet = 'DHT Logger'
+# Account details for google docs, encoded in a seperate file
+f = open(os.path.expanduser('~/.dhtlogger'), 'r')
+email, password, spreadsheet = f.read().splitlines()
 
 poll_interval = 30*60
+
 # DHT11 sensors can be connected to the following GPIO data pins:
 sensors = ['22','21','17','15','4','1']
 names   = ['Room', 'n/a', 'n/a', 'n/a', 'n/a', 'Cabinet']
 
 # Login with your Google account
 try:
-  gc = gspread.login(email, password)
+  gc = gspread.login(email.decode('base64'), password.decode('base64'))
 except:
   print "Unable to log in.  Check your email address/password"
   sys.exit()
