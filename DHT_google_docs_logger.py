@@ -3,7 +3,6 @@
 import subprocess
 import re
 import sys
-import os
 import time
 import datetime
 import gspread
@@ -13,7 +12,7 @@ import gspread
 # ===========================================================================
 
 # Account details for google docs, encoded in a seperate file
-f = open(os.path.expanduser('~/.dhtlogger'), 'r')
+f = open('/root/.dhtlogger', 'r')
 email, password, spreadsheet = f.read().splitlines()
 
 poll_interval = 30*60
