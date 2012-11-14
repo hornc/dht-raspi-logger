@@ -14,7 +14,7 @@ logging.basicConfig(filename='sensors.log',format='%(asctime)s %(message)s',leve
 f = open('/root/.dhtlogger', 'r')
 email, password, spreadsheet = f.read().splitlines()
 
-# pollong interval in seconds
+# polling interval in seconds
 poll_interval = 30*60
 
 # DHT11 sensors can be connected to the following GPIO data pins:
