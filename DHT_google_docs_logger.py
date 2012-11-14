@@ -24,8 +24,9 @@ names   = ['Room', 'n/a', 'n/a', 'n/a', 'n/a', 'Cabinet']
 # Login with your Google account
 try:
   gc = gspread.login(email.decode('base64'), password.decode('base64'))
+  logging.info("Successfully Logged into google docs as %s" % email.decode('base64'))
 except:
-  print "Unable to log in.  Check your email address/password"
+  logging.warning("Unable to log in.  Check your email address/password")
   sys.exit()
 
 # Continuously append data
