@@ -28,20 +28,19 @@ except:
   print "Unable to log in.  Check your email address/password"
   sys.exit()
 
-# Open a worksheet from your spreadsheet using the filename
-try:
-  worksheet = gc.open(spreadsheet).sheet1
-  # Alternatively, open a spreadsheet using the spreadsheet's key
-  # worksheet = gc.open_by_key('0BmgG6nO_6dprdS1MN3d3MkdPa142WFRrdnRRUWl1UFE')
-except:
-  print "Unable to open the spreadsheet.  Check your filename: %s" % spreadsheet
-  sys.exit()
-
 # Continuously append data
 while(True):
-  # Run the DHT program to get the humidity and temperature readings!
+  # clear the array used to store all of the various sensor results at a particular read time
   row = []
+  # Open the first worksheet from your spreadsheet using the filename
+  try:
+    worksheet = gc.open(spreadsheet).sheet1
+  except:
+    print "Unable to open the spreadsheet, Skipping this sensor read. Check your filename: %s" % spreadsheet
+    time.sleep(poll_interval)
+    continue
   for x in range(len(sensors)):
+    # Run the DHT program to get the humidity and temperature readings!
     output = subprocess.check_output(["./Adafruit_DHT", "11", sensors[x]]);
     print "Sensor %d, %s, GPIO pin %s" % (x+1, names[x], sensors[x])
     print output
