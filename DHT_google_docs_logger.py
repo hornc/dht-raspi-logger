@@ -6,15 +6,15 @@ import sys
 import time
 import datetime
 import gspread
+import logging
 
-# ===========================================================================
-# Google Account Details
-# ===========================================================================
+logging.basicConfig(filename='sensors.log',format='%(asctime)s %(message)s',level=logging.DEBUG)
 
 # Account details for google docs, encoded in a seperate file
 f = open('/root/.dhtlogger', 'r')
 email, password, spreadsheet = f.read().splitlines()
 
+# pollong interval in seconds
 poll_interval = 30*60
 
 # DHT11 sensors can be connected to the following GPIO data pins:
@@ -36,7 +36,7 @@ while(True):
   try:
     worksheet = gc.open(spreadsheet).sheet1
   except:
-    print "Unable to open the spreadsheet, Skipping this sensor read. Check your filename: %s" % spreadsheet
+    logging.warning("Unable to open the spreadsheet, Skipping this sensor read. Check your filename: %s" % spreadsheet)
     time.sleep(poll_interval)
     continue
   for x in range(len(sensors)):
@@ -66,10 +66,9 @@ while(True):
     values = [datetime.datetime.now()] + row
     print values
     worksheet.append_row(values)
+    print "Wrote a row to %s" % spreadsheet
   except:
-    print "Unable to append data.  Check your connection?"
-    sys.exit()
+    logging.warning("Unable to append data.  Check your connection?")
 
   # Wait poll_interval seconds before continuing
-  print "Wrote a row to %s" % spreadsheet
   time.sleep(poll_interval)
