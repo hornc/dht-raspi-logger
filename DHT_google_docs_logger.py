@@ -18,7 +18,7 @@ email, password, spreadsheet = f.read().splitlines()
 poll_interval = 30*60
 
 # DHT11 sensors can be connected to the following GPIO data pins:
-sensors = ['22','21','17','15','4','1']
+sensors = ['22','27','17','15','4','3']
 names   = ['Room', 'n/a', 'n/a', 'n/a', 'n/a', 'Cabinet']
 
 # Login with your Google account
