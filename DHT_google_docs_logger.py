@@ -46,25 +46,21 @@ while(True):
     time.sleep(poll_interval)
     continue
   for x in range(len(sensors)):
+    # skip un-named sensors 
+    if names[x] == 'n/a': continue
     # Run the DHT program to get the humidity and temperature readings!
     output = subprocess.check_output(["./Adafruit_DHT", "11", sensors[x]]);
     print "Sensor %d, %s, GPIO pin %s" % (x+1, names[x], sensors[x])
     print output
     matches = re.search("Temp =\s+([0-9.]+)", output)
-    if (not matches):
-	time.sleep(3)
-	continue
-    temp = float(matches.group(1))
+    temp = float(matches.group(1)) if matches else '--' 
   
     # search for humidity printout
     matches = re.search("Hum =\s+([0-9.]+)", output)
-    if (not matches):
-	time.sleep(3)
-	continue
-    humidity = float(matches.group(1))
+    humidity = float(matches.group(1)) if matches else '--'
 
-    print "Temperature: %.1f C" % temp
-    print "Humidity:    %.1f %%" % humidity
+    print "Temperature: %s C" % str(temp)
+    print "Humidity:    %s %%" % str(humidity)
     row.extend([temp, humidity])
  
   # Append the data in the spreadsheet, including a timestamp
