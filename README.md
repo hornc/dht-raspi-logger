@@ -27,6 +27,13 @@ cd gspread
 sudo python setup.py install
 ```
 
+To write logged data to a Google Docs spreadsheet you will need to create a config file (default location: /root/.dhtlogger) with the following format:
+```
+<Base64 encoded Google Docs username@gmail.com>
+<Base64 encoded password>
+<Plaintext Google Docs spreadsheet name>
+```
+
 None of the C code here was written by me, I have just made modifications to the example python script to suit my application and storing it on github so I can easily clone to my Raspberry Pi's. If someone else finds my modifications useful, so much the better!
 
 Thanks Adafruit for the original code and the very clear guide!  

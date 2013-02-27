@@ -9,10 +9,15 @@ import gspread
 import logging
 
 logging.basicConfig(filename='sensors.log',format='%(asctime)s %(message)s',level=logging.DEBUG)
+config_file = '/root/.dhtlogger'
 
 # Account details for google docs, encoded in a seperate file
-f = open('/root/.dhtlogger', 'r')
-email, password, spreadsheet = f.read().splitlines()
+try:
+  f = open(config_file, 'r')
+  email, password, spreadsheet = f.read().splitlines()
+except:
+  print "Unable to open %s" % config_file
+  print " see README.md for expected format of this file."
 
 # polling interval in seconds
 poll_interval = 30*60
