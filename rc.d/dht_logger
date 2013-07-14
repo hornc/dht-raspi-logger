@@ -12,7 +12,8 @@ case "$1" in
     ./DHT_google_docs_logger.py &
     ;;
   stop)
-    echo "Stopping DHT logger -- no action yet TODO!!!"
+    echo "Stopping DHT logger"
+    kill -STOP `pidof python ./DHT_google_docs_logger.py`
 
     ;;
   *)
