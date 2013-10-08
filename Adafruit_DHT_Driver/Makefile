@@ -4,7 +4,7 @@ DEPS =
 OBJ = Adafruit_DHT.o
 
 %.o: %.c $(DEPS)
-	$(CC) -c -o $@ $&lt; $(CFLAGS)
+	$(CC) -c -o $@ $< $(CFLAGS)
 
 Adafruit_DHT: $(OBJ)
 	gcc -o $@ $^ $(CFLAGS)
