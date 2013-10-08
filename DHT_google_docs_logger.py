@@ -46,10 +46,10 @@ while(True):
     time.sleep(poll_interval)
     continue
   for x in range(len(sensors)):
-    # skip un-named sensors 
+    # skip un-named sensors
     if names[x] == 'n/a': continue
     # Run the DHT program to get the humidity and temperature readings!
-    output = subprocess.check_output(["./Adafruit_DHT", "11", sensors[x]]);
+    output = subprocess.check_output(["./Adafruit_DHT_Driver/Adafruit_DHT", "11", sensors[x]]);
     print "Sensor %d, %s, GPIO pin %s" % (x+1, names[x], sensors[x])
     print output
     matches = re.search("Temp =\s+([0-9.]+)", output)
