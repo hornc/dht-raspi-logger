@@ -5,8 +5,9 @@
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 if ifconfig wlan0 | grep -q "inet addr:" ; then
-  echo "WiFi connected, everything is OK!" 
+  # Do Nothing
+  # echo "WiFi connected, everything is OK!" 
 else
-  echo "Network connection down! Attempting reconnection."
+  echo "$(date "+%Y%m%d %H:%M:%S") Network connection down! Attempting reconnection."
   ifup --force wlan0
 fi

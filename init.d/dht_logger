@@ -2,7 +2,7 @@
 # /etc/init.d/dht_logger
 #
 
-echo "dht_logger called with ARG: $1" >> /tmp/dht.log
+echo "$(date "+%Y%m%d %H:%M:%S") dht_logger called with ARG: $1" >> /tmp/dht.log
 cd /home/pi/DHT-RaspPi-logger/
 
 # Carry out specific functions when asked to by the system
