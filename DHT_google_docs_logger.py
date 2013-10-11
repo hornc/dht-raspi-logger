@@ -68,7 +68,7 @@ while(True):
     values = [datetime.datetime.now()] + row
     print values
     worksheet.append_row(values)
-    print "Wrote a row to %s" % spreadsheet
+    print "Wrote a row to spreadsheet: %s" % spreadsheet
   except:
     logging.warning("Unable to append data.  Check your connection?")
 
