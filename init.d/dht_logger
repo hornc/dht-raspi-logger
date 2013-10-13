@@ -9,7 +9,7 @@ cd /home/pi/DHT-RaspPi-logger/
 case "$1" in
   start)
     echo "Starting DHT logger"
-    ./DHT_google_docs_logger.py &
+    nohup ./DHT_google_docs_logger.py &
     ;;
   stop)
     echo "Stopping DHT logger: attempting to kill `pidof python ./DHT_google_docs_logger.py`"
@@ -19,7 +19,8 @@ case "$1" in
     ps -ef | grep python[^*]*DHT
     ;;
   *)
-    echo "Usage: /etc/init.d/dht_logger {start|stop}"
+    echo "Usage: /etc/init.d/dht_logger {start|stop|status}"
+    echo " OR: service dht_logger {start|stop|status}"
     exit 1
     ;;
 esac
