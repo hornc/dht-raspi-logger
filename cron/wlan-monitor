@@ -1,6 +1,6 @@
 #!/bin/sh
 # to run this every 15mins add the following line to root user's crontab:
-# */15 * * * * /home/pi/dht-raspi-logger/cron/wlan-monitor.sh
+# */15 * * * * /home/pi/dht-raspi-logger/cron/wlan-monitor
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
