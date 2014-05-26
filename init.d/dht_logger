@@ -3,20 +3,20 @@
 #
 
 echo "$(date "+%Y%m%d %H:%M:%S") dht_logger called with ARG: $1" >> /tmp/dht.log
-cd /home/pi/DHT-RaspPi-logger/
+cd /home/pi/dht-raspi-logger/
 
 # Carry out specific functions when asked to by the system
 case "$1" in
   start)
     echo "Starting DHT logger"
-    nohup ./DHT_google_docs_logger.py &
+    nohup ./dht_gspread_logger.py &
     ;;
   stop)
-    echo "Stopping DHT logger: attempting to kill `pidof python ./DHT_google_docs_logger.py`"
-    kill -9 `pidof python ./DHT_google_docs_logger.py`
+    echo "Stopping DHT logger: attempting to kill `pidof python ./dht_gspread_logger.py`"
+    kill -9 `pidof python ./dht_gspread_logger.py`
     ;;
   status)
-    ps -ef | grep python[^*]*DHT
+    ps -ef | grep python[^*]*dht_gspread
     ;;
   *)
     echo "Usage: /etc/init.d/dht_logger {start|stop|status}"
