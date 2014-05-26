@@ -1,8 +1,8 @@
 #! /bin/sh
-# /etc/init.d/dht_logger
+#  /etc/init.d/dht-logger
 #
 
-echo "$(date "+%Y%m%d %H:%M:%S") dht_logger called with ARG: $1" >> /tmp/dht.log
+echo "$(date "+%Y%m%d %H:%M:%S") dht-logger called with ARG: $1" >> /tmp/dht.log
 cd /home/pi/dht-raspi-logger/
 
 # Carry out specific functions when asked to by the system
@@ -19,8 +19,7 @@ case "$1" in
     ps -ef | grep python[^*]*dht_gspread
     ;;
   *)
-    echo "Usage: /etc/init.d/dht_logger {start|stop|status}"
-    echo " OR: service dht_logger {start|stop|status}"
+    echo "Usage: service dht-logger {start|stop|status}"
     exit 1
     ;;
 esac
