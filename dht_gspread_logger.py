@@ -53,8 +53,8 @@ while(True):
     print "Sensor %d, %s, GPIO pin %s" % (x+1, names[x], sensors[x])
     print output
     matches = re.search("Temp =\s+([0-9.]+)", output)
-    temp = float(matches.group(1)) if matches else '--' 
-  
+    temp = float(matches.group(1)) if matches else '--'
+
     # search for humidity printout
     matches = re.search("Hum =\s+([0-9.]+)", output)
     humidity = float(matches.group(1)) if matches else '--'
@@ -62,7 +62,7 @@ while(True):
     print "Temperature: %s C" % str(temp)
     print "Humidity:    %s %%" % str(humidity)
     row.extend([temp, humidity])
- 
+
   # Append the data in the spreadsheet, including a timestamp
   try:
     values = [datetime.datetime.now()] + row
